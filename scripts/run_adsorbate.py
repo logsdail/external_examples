@@ -8,8 +8,9 @@ from ase.build import fcc111, add_adsorbate, molecule
 from ase.constraints import FixAtoms
 from ase.optimize import BFGS
 from ase.calculators.emt import EMT
-from software.run.aims_calculator import get_aims_calculator
-from software.run.aims_path import set_aims_command
+# Disabled. Won't work unless carmm is in your runtime environment.
+#from software.run.aims_calculator import get_aims_calculator
+#from software.run.aims_path import set_aims_command
 
 emt=True
 
@@ -19,9 +20,9 @@ molecule=molecule("H2")
 #molecule.rotate(90, 'x')
 if emt:
     molecule.set_calculator(EMT())
-else:
-    set_aims_command()
-    molecule.set_calculator(get_aims_calculator("gas"))
+#else:
+#    set_aims_command()
+#    molecule.set_calculator(get_aims_calculator("gas"))
 
 ## Optimize
 molecule_opt = BFGS(molecule) #, trajectory="adsorbate.traj", restart="adsorbate.pckl")
