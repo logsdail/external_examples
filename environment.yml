@@ -6,6 +6,11 @@ name: notebooks
 # Load dependencies - add modules here if you need them
 dependencies:
   - python
+# Maths related
   - numpy
+  - pandas
+  - sklearn
   - matplotlib
+# Molecular modelling
+  - ase
   - wulffpack
