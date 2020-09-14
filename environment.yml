@@ -9,7 +9,7 @@ dependencies:
 # Maths related
   - numpy
   - pandas
-  - sklearn
+  - scikit-learn
   - matplotlib
 # Molecular modelling
   - ase
