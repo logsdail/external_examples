@@ -1,0 +1,9 @@
+# Prevent files for notebooks from uploading
+/notebooks/ASE/AutoNEB_iter
+/notebooks/ASE/*.log
+/notebooks/ASE/*.csv
+/notebooks/ASE/*.traj
+/notebooks/ASE/*.pckl
+/notebooks/ASE/*.png
+/notebooks/ASE/.ipynb_checkpoints
+
