@@ -35,7 +35,7 @@ from ase.io import write, read
 kb = float(8.6173303*10**(-5)) # Boltzmann constant in eV/K
 temp = 300 # Temperature in K
 
-for n in range(0, nsites, 5):
+for n in range(1, len(scell)):
     nsubs = {0:[n]}
 
     # Initialization of a MonteCarlo object

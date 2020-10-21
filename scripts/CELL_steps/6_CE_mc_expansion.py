@@ -2,7 +2,7 @@
 from clusterx.super_cell import SuperCell
 from clusterx.parent_lattice import ParentLattice
 platt = ParentLattice(json_db_filepath="platt.json")
-scell = SuperCell(platt, [10, 10, 10])
+scell = SuperCell(platt, [10, 10])
 
 # Build a Cluster Expansion model based on structures from previous calculations
 # and an optimised pool of clusters
@@ -26,7 +26,7 @@ temp = 300 # Temperature in K
 
 list_of_mc_structures = []
 
-for n in range(0, nsites, 50):
+for n in range(1, nsites, 50):
     nsubs = {0:[n]}
 
     # Initialization of a MonteCarlo object
