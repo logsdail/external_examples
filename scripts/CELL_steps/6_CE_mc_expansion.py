@@ -69,4 +69,5 @@ from ase.visualize import view
 view(list_of_mc_structures)
 refs = StructuresSet(db_fname="refs.json")
 from clusterx.visualization import plot_property_vs_concentration
+property_name = "energy"
 plot_property_vs_concentration(sset, site_type=0, property_name=property_name,refs=ref_en,scale=0.6)
