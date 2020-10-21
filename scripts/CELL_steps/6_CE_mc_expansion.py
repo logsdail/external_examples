@@ -26,7 +26,7 @@ temp = 300 # Temperature in K
 
 list_of_mc_structures = []
 
-for n in range(0, nsites, 50)
+for n in range(0, nsites, 50):
     nsubs = {0:[n]}
 
     # Initialization of a MonteCarlo object
