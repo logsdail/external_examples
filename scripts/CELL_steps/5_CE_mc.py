@@ -65,7 +65,11 @@ sset.write_files(prefix="sset_mc")
 structure_locations = sset.get_folders()
 sset_write_locations = open("folder_paths.txt", "w")
 for i in structure_locations:
+    if i is not structure_locations[-1]:
         sset_write_locations.write(i+" ")
+    else:
+        sset_write_locations.write(i) # avoid ending file with the denominator
+        
 sset_write_locations.close()
 
 # Go back to step 3 to recalculate the energies
