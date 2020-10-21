@@ -56,11 +56,12 @@ for n in range(1, len(scell)):
     lowest_energy = traj.get_lowest_energy_structure() # get lowest energy non duplicated
     sset.add_structure(lowest_energy, write_db=True)      #adding the structures to the sset? supercell has no add structure
 
-# Write the database once all MonteCarlo simulations have finished
-sset.serialize("sset_mc.json")
-
 # Write out the new folder structure and generate a file cointaining the list of folders
 sset.write_files(prefix="sset_mc")
+
+
+# Write the database once all MonteCarlo simulations have finished
+sset.serialize("sset_mc.json")
 
 structure_locations = sset.get_folders()
 sset_write_locations = open("folder_paths.txt", "w")
@@ -69,7 +70,7 @@ for i in structure_locations:
         sset_write_locations.write(i+" ")
     else:
         sset_write_locations.write(i) # avoid ending file with the denominator
-        
+
 sset_write_locations.close()
 
 # Go back to step 3 to recalculate the energies
