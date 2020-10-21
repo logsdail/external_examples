@@ -24,7 +24,7 @@ refs.read_property_values(property_name, write_to_file=False, read_property=read
 refs.serialize("refs.json")
 ref_en = refs.get_property_values(property_name)
 
-#plot_property_vs_concentration(sset, site_type=0, property_name=property_name,refs=ref_en,scale=0.6)
+plot_property_vs_concentration(sset, site_type=0, property_name=property_name,refs=ref_en,scale=0.6)
 
 # See the most stable structure
 from ase.visualize import view

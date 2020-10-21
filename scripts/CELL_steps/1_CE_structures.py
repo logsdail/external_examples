@@ -5,12 +5,12 @@ from clusterx.super_cell import SuperCell
 from random import randint
 import numpy as np
 import os
-np.random.seed(10)
 from ase.build import surface
 from ase import Atoms
 
-scell_x, scell_y = 3, 3
-layer_height = 7
+########## Edit Structure Here #############
+scell_x, scell_y = 2, 2
+layer_height = 2
 
 a = 2.874
 c = 3.661
@@ -21,8 +21,10 @@ Alloy= Atoms('AuCu', scaled_positions=[(0, 0, 0),
               cell=[a, a, c],
               pbc=True)
 
-pri = surface(Alloy, (1, 1, 0), layer_height)
-pri.center(vacuum=20.0, axis=2)
+pri = Alloy
+# pri = surface(Alloy, (1, 1, 0), layer_height)
+# pri.center(vacuum=20.0, axis=2)
+#############################################
 
 symbols = pri.get_chemical_symbols() # Get Chemical symbols of slab
 z_coords = pri.get_positions()[:,2] # Get z-coordinate of atomic positions in slab
@@ -32,9 +34,11 @@ for i, (symbol, z_coord) in enumerate(zip(symbols,z_coords)):
     print("{0:<19d}|{1:<19s}|{2:<19.3f}".format(i,symbol,z_coord)) # Print atom indexes, symbols and z_coordinat
 
 list_of_elements = [["Au", "Cu"]] * len(pri)
-platt = ParentLattice(pri, symbols= list_of_elements)
-scell = SuperCell(platt,[scell_x, scell_y])
+platt = ParentLattice(pri, symbols=list_of_elements)
+scell = SuperCell(platt, [scell_x, scell_y, layer_height])
+
 scell.get_sublattice_types(pretty_print=True)
+platt.serialize("platt.json")
 scell.serialize("scell.json")
 sset = StructuresSet(platt)
 z_coords_2 = scell.get_positions()[:]
@@ -71,14 +75,10 @@ for i in structure_locations:
 
 refs_write_locations.close()
 
-from clusterx.clusters.clusters_pool import ClustersPool
-import os
-if not os.path.exists("cpool.json"):
-    cpool = ClustersPool(platt, npoints=[0,1,2], radii=[0, -1,-1], super_cell=scell)
-    print(len(cpool)," clusters were generated.")
-    cpool.serialize(db_name="cpool.json")
+# The first time the folder_paths.txt file is generated it contains both sset
+# structures and the reference structures. No need to repeat the reference calcs
+# after adding Monte Carlo structures.
 
-"""
-# this can be applied once energies are calculated and retrieved
-plot_property_vs_concentration(sset, site_type=0, property_name="total_energy_emt",refs=ref_en,scale=0.6)
-"""
+# 1 -> 2 -> 3 -> 4 ->
+# -> 3 -> 4 ->
+# -> add new, larger structures and apply the model (predict energies)
