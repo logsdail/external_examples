@@ -1,13 +1,17 @@
-# Read previously generated ParentLattice and SuperCell
+from clusterx.structures_set import StructuresSet
+from clusterx.clusters.clusters_pool import ClustersPool
 from clusterx.super_cell import SuperCell
 from clusterx.parent_lattice import ParentLattice
+from clusterx.model import ModelBuilder
+
 platt = ParentLattice(json_db_filepath="platt.json")
-scell = SuperCell(platt, [10, 10])
+# Define a new, larger super cell
+scell = SuperCell(platt, [3, 3, 7])
 
 # Build a Cluster Expansion model based on structures from previous calculations
 # and an optimised pool of clusters
 sset = StructuresSet(db_fname="sset_mc.json")
-cpool = ClustersPool(json_db_filepath="cpool_opt.json")
+cpool = ClustersPool(json_db_filepath="cpool.json") # can't use cpool_opt?
 
 mb = ModelBuilder(selector_type="linreg",
                   selector_opts={'clusters_sets':'size'},
@@ -15,6 +19,12 @@ mb = ModelBuilder(selector_type="linreg",
                   estimator_opts={"fit_intercept":False})
 
 cemodel = mb.build(sset, cpool, "energy") # Build CE model using the training data set
+cpool_opt_mc = mb.get_opt_cpool()
+cemodel.report_errors(sset)
+cpool_opt_mc.display_info(ecis=cemodel.get_ecis())
+cpool_opt_mc.write_clusters_db(db_name="cpool_opt_mc.json")
+
+
 nsites = len(scell.get_substitutional_atoms())
 
 from clusterx.thermodynamics.monte_carlo import MonteCarlo
@@ -26,7 +36,8 @@ temp = 300 # Temperature in K
 
 list_of_mc_structures = []
 
-for n in range(1, nsites, 50):
+for n in range(1, nsites, int(nsites/10)):
+    print("Now analysing systems with", n, "substitutions.")
     nsubs = {0:[n]}
 
     # Initialization of a MonteCarlo object
@@ -39,7 +50,7 @@ for n in range(1, nsites, 50):
                     filename = 'MC_CE'+str(nsubs)+'.json')
 
     # Execution of a Metropolis Monte-Carlo sampling
-    traj = mc.metropolis(no_of_sampling_steps = 1000,
+    traj = mc.metropolis(no_of_sampling_steps = 100, # increase if necessary
                         temperature = 500, # Kelvin
                         boltzmann_constant = kb,
                         scale_factor = [1/(1.0*nsites)])
@@ -57,4 +68,5 @@ sset.write_files(prefix="sset_ce")
 from ase.visualize import view
 view(list_of_mc_structures)
 refs = StructuresSet(db_fname="refs.json")
+from clusterx.visualization import plot_property_vs_concentration
 plot_property_vs_concentration(sset, site_type=0, property_name=property_name,refs=ref_en,scale=0.6)

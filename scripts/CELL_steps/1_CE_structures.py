@@ -81,4 +81,4 @@ refs_write_locations.close()
 
 # 1 -> 2 -> 3 -> 4 ->
 # -> 3 -> 4 ->
-# -> add new, larger structures and apply the model (predict energies)
+# -> 6

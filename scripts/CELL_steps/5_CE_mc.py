@@ -7,11 +7,11 @@ from clusterx.super_cell import SuperCell
 # very inconsistent keyword naming scheme for retrieving data from .json files
 sset = StructuresSet(db_fname="sset.json")
 cpool = ClustersPool(json_db_filepath="cpool.json")
-
 mb = ModelBuilder(selector_type="linreg",
                   selector_opts={'clusters_sets':'size'},
                   estimator_type="skl_LinearRegression",
                   estimator_opts={"fit_intercept":False})
+
 cemodel = mb.build(sset, cpool, "energy") # Build CE model using the training data set
 cpool_opt1 = mb.get_opt_cpool()
 
@@ -36,6 +36,7 @@ kb = float(8.6173303*10**(-5)) # Boltzmann constant in eV/K
 temp = 300 # Temperature in K
 
 for n in range(1, len(scell)):
+    print("Now analysing systems with", n, "substitutions.")
     nsubs = {0:[n]}
 
     # Initialization of a MonteCarlo object

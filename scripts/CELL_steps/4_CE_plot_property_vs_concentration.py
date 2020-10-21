@@ -12,11 +12,11 @@ def read_property(i, folder, structure=None, **kwargs):
     print(folder, erg)
     return erg
 
-
+prefix = "sset"
 property_name = "energy"
-sset = StructuresSet(db_fname="sset.json")
+sset = StructuresSet(db_fname=prefix+".json")
 sset.read_property_values(property_name, write_to_file=False, read_property=read_property)
-sset.serialize("sset.json")
+sset.serialize(prefix+".json")
 
 
 refs = StructuresSet(db_fname="refs.json")
@@ -26,6 +26,7 @@ ref_en = refs.get_property_values(property_name)
 
 plot_property_vs_concentration(sset, site_type=0, property_name=property_name,refs=ref_en,scale=0.6)
 
+'''
 # See the most stable structure
 from ase.visualize import view
 import numpy as np
@@ -34,3 +35,4 @@ lowest_energy_structure_index = np.where(array == np.amin(array))[0][0]
 # GET STRUCTURES/ GET STRUCTURE IS NOT SHOWING THE CORRECT STRUCTURE
 lowest_energy_structure = sset.get_structures()[lowest_energy_structure_index]
 view(lowest_energy_structure)
+'''
