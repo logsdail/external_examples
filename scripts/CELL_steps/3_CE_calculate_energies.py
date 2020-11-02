@@ -25,6 +25,7 @@ def calculation_function(structure_locations, property_name, calculator, socket=
     # files and retrieve the values from there?
     if socket is True:
         for paths in structure_locations:
+            print("Now calculating structure at", paths)
             os.chdir(paths)
             if not os.path.exists(str(property_name)+".dat"): # do not perform unnecessary calculations
                 model = read("geometry.json")

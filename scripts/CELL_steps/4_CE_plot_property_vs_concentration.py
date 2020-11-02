@@ -26,13 +26,15 @@ ref_en = refs.get_property_values(property_name)
 
 plot_property_vs_concentration(sset, site_type=0, property_name=property_name,refs=ref_en,scale=0.6)
 
-'''
+
 # See the most stable structure
 from ase.visualize import view
 import numpy as np
 array = sset.get_property_values(property_name)
 lowest_energy_structure_index = np.where(array == np.amin(array))[0][0]
 # GET STRUCTURES/ GET STRUCTURE IS NOT SHOWING THE CORRECT STRUCTURE
-lowest_energy_structure = sset.get_structures()[lowest_energy_structure_index]
+#lowest_energy_structure = sset.get_structures()[lowest_energy_structure_index] # not working for the moment
+os.chdir(sset.get_folders()[lowest_energy_structure_index])
+lowest_energy_structure = read("geometry.json")
 view(lowest_energy_structure)
-'''
+
