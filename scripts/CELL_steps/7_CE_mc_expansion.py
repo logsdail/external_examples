@@ -64,6 +64,14 @@ sset.serialize("sset_ce.json")
 
 # Write out the new folder structure and generate a file cointaining the list of folders
 sset.write_files(prefix="sset_ce")
+# Store previous energies in the form of energy.dat files
+for i in range(0, len(sset)):
+        property_name = "energy"
+        e_model = sset.get_property_values(property_name)[i]
+        f = open(sset.get_folders()[i]+"/"+property_name+".dat", "w")
+        f.write(str(e_model))
+        f.close()
+
 # Plot the data
 from ase.visualize import view
 view(list_of_mc_structures)
