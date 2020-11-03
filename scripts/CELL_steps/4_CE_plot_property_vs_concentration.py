@@ -1,4 +1,5 @@
 import os
+from ase.io import read
 from clusterx.structures_set import StructuresSet
 from clusterx.visualization import plot_property_vs_concentration
 

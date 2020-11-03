@@ -1,5 +1,11 @@
 # Starting MC simulations
 # Show sublattice properties
+
+from clusterx.model import ModelBuilder
+from clusterx.clusters.clusters_pool import ClustersPool
+from clusterx.structures_set import StructuresSet
+from clusterx.super_cell import SuperCell
+
 scell = SuperCell(json_db_filepath="scell.json")
 scell.get_sublattice_types(pretty_print=True)
 sites_dict = scell.get_nsites_per_type()

@@ -18,8 +18,25 @@ cemodel.report_errors(sset)
 cpool_opt1.display_info(ecis=cemodel.get_ecis())
 cpool_opt1.write_clusters_db(db_name="cpool_opt.json")
 
+def read_property(i, folder, structure=None, **kwargs):
+    import os
+    f = open(os.path.join(folder, "energy.dat"), 'r')
+    erg = float(f.readlines()[0])
+    f.close()
+    print(folder, erg)
+    return erg
+
+property_name = "energy"
+# ref
+refs = StructuresSet(db_fname="refs.json")
+refs.read_property_values(property_name, write_to_file=False, read_property=read_property)
+refs.serialize("refs.json")
+ref_en = refs.get_property_values(property_name)
+
 from clusterx.visualization import plot_optimization_vs_number_of_clusters
 from clusterx.visualization import plot_predictions_vs_target
+from clusterx.visualization import plot_property_vs_concentration
+
 plot_optimization_vs_number_of_clusters(mb.get_selector(),scale=0.5)
 plot_predictions_vs_target(sset,cemodel,"total_energy_emt",scale=0.5)
 plot_property_vs_concentration(sset, site_type=0, property_name="total_energy_emt",cemodel=cemodel,refs=ref_en,scale=0.5)
