@@ -8,10 +8,12 @@ platt = ParentLattice(json_db_filepath="platt.json")
 # Define a new, larger super cell
 scell = SuperCell(platt, [3, 3, 7])
 
+# TODO: This should be replaced by the line below after fixing Model serialization
+# cemodel = Model(json_db_filepath="CE_model.json")
+##################################################################
 # Build a Cluster Expansion model based on structures from previous calculations
-# and an optimised pool of clusters
 sset = StructuresSet(db_fname="sset_mc.json")
-cpool = ClustersPool(json_db_filepath="cpool.json") # can't use cpool_opt?
+cpool = ClustersPool(json_db_filepath="cpool.json")
 
 mb = ModelBuilder(selector_type="linreg",
                   selector_opts={'clusters_sets':'size'},
@@ -23,7 +25,7 @@ cpool_opt_mc = mb.get_opt_cpool()
 cemodel.report_errors(sset)
 cpool_opt_mc.display_info(ecis=cemodel.get_ecis())
 cpool_opt_mc.write_clusters_db(db_name="cpool_opt_mc.json")
-
+###################################################################
 
 nsites = len(scell.get_substitutional_atoms())
 

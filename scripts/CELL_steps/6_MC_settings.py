@@ -63,9 +63,10 @@ sset.write_files(prefix="sset_mc")
 for i in range(0, len(sset)):
         property_name = "energy"
         e_model = sset.get_property_values(property_name)[i]
-        f = open(sset.get_folders()[i]+"/"+property_name+".dat", "w")
-        f.write(str(e_model))
-        f.close()
+        if e_model:
+            f = open(sset.get_folders()[i]+"/"+property_name+".dat", "w")
+            f.write(str(e_model))
+            f.close()
 
 
 
