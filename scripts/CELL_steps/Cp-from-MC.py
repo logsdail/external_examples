@@ -5,6 +5,7 @@ from clusterx.model import ModelBuilder, Model
 from clusterx.clusters.clusters_pool import ClustersPool
 from clusterx.structures_set import StructuresSet
 from clusterx.super_cell import SuperCell
+from clusterx.visualization import plot_property
 
 def read_property(i, folder, structure=None, **kwargs):
     import os
