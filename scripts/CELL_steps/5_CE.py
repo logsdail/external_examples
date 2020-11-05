@@ -7,6 +7,10 @@ from clusterx.super_cell import SuperCell
 # very inconsistent keyword naming scheme for retrieving data from .json files
 sset = StructuresSet(db_fname="sset.json")
 cpool = ClustersPool(json_db_filepath="cpool.json")
+
+# Lasso can also be a selector , not only the estimator, can evaluate interactions
+# that are zero contribution, so it can help eliminate the unnecessary clusters
+# can try also combinatorial (avoid large numbers! otherwise all combinations tested)
 mb = ModelBuilder(selector_type="linreg",
                   selector_opts={'clusters_sets':'size'},
                   estimator_type="skl_LinearRegression",
@@ -41,5 +45,3 @@ from clusterx.visualization import plot_property_vs_concentration
 plot_optimization_vs_number_of_clusters(mb.get_selector(),scale=0.5)
 plot_predictions_vs_target(sset,cemodel,property_name,scale=0.5)
 plot_property_vs_concentration(sset, site_type=0, property_name=property_name,cemodel=cemodel,refs=ref_en,scale=0.5)
-
-
