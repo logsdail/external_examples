@@ -5,7 +5,7 @@ from clusterx.structures_set import StructuresSet
 from clusterx.super_cell import SuperCell
 
 # very inconsistent keyword naming scheme for retrieving data from .json files
-sset = StructuresSet(db_fname="sset.json")
+sset = StructuresSet(db_fname="sset.json")  # db_fname="sset_mc.json" if we want take in account the MC structures
 cpool = ClustersPool(json_db_filepath="cpool.json")
 
 # Lasso can also be a selector , not only the estimator, can evaluate interactions
@@ -22,6 +22,9 @@ cemodel.report_errors(sset)
 cpool_opt1.display_info(ecis=cemodel.get_ecis())
 cpool_opt1.write_clusters_db(db_name="cpool_opt.json")
 cemodel.serialize("CE_model.json")
+predictions = sset.get_predictions(cemodel)
+sset.serialize("sset_predict.json") #to save the predicted structures
+
 
 def read_property(i, folder, structure=None, **kwargs):
     import os
