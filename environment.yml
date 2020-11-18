@@ -14,3 +14,6 @@ dependencies:
 # Molecular modelling
   - ase
   - wulffpack
+# Necessary for online atom viewing
+  - nglview
+  - ipywidgets
