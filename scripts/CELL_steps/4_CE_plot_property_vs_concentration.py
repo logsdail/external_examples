@@ -13,7 +13,7 @@ def read_property(i, folder, structure=None, **kwargs):
     print(folder, erg)
     return erg
 
-prefix = "sset"
+prefix = "sset_mc"
 property_name = "energy"
 sset = StructuresSet(db_fname=prefix+".json")
 sset.read_property_values(property_name, write_to_file=False, read_property=read_property)

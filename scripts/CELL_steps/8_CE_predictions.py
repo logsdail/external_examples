@@ -12,7 +12,7 @@ scell = SuperCell(platt, [3, 3, 7])
 
 ##################################################################
 # Build a Cluster Expansion model based on structures from previous calculations
-sset = StructuresSet(db_fname="sset.json")
+sset = StructuresSet(db_fname="sset_mc.json")
 cpool = ClustersPool(json_db_filepath="cpool.json")
 
 mb = ModelBuilder(selector_type="linreg",
