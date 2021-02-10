@@ -1,0 +1,5 @@
+# All notebook outputs
+*.pckl
+*.traj
+*.log
+*.png
