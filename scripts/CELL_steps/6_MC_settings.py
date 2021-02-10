@@ -9,16 +9,8 @@ from clusterx.super_cell import SuperCell
 # Read the previously generated structures_set from .json database file
 sset = StructuresSet(db_fname="sset.json")
 
-################ TODO: Raise with Santiago #################################
-cpool = ClustersPool(json_db_filepath="cpool.json")
-mb = ModelBuilder(selector_type="linreg",
-                  selector_opts={'clusters_sets':'size'},
-                  estimator_type="skl_LinearRegression",
-                  estimator_opts={"fit_intercept":False})
-cemodel = mb.build(sset, cpool, "energy") # Build CE model using the training data set
-cpool_opt1 = mb.get_opt_cpool()
-############################################################################
-#cemodel = Model(json_db_filepath="CE_model.json") # TODO: Calling a serialized model does not work
+
+cemodel = Model(json_db_filepath="CE_model.json")
 
 scell = SuperCell(json_db_filepath="scell.json")
 scell.get_sublattice_types(pretty_print=True)

@@ -24,31 +24,9 @@ property_name = "energy"
 # Read the previously generated structures_set from .json database file
 sset = StructuresSet(db_fname="sset_mc.json")
 
-def read_property(i, folder, structure=None, **kwargs):
-    import os
-    f = open(os.path.join(folder, "energy.dat"), 'r')
-    erg = float(f.readlines()[0])
-    f.close()
-    print(folder, erg)
-    return erg
 
-property_name = "energy"
-# ref
-refs = StructuresSet(db_fname="refs.json")
-refs.read_property_values(property_name, write_to_file=False, read_property=read_property)
-refs.serialize("refs.json")
-ref_en = refs.get_property_values(property_name)
-     
-################ TODO: Raise with Santiago #################################
-cpool = ClustersPool(json_db_filepath="cpool.json")
-mb = ModelBuilder(selector_type="linreg",
-                  selector_opts={'clusters_sets':'size'},
-                  estimator_type="skl_LinearRegression",
-                  estimator_opts={"fit_intercept":False})
-cemodel = mb.build(sset, cpool, "energy") # Build CE model using the training data set
-cpool_opt1 = mb.get_opt_cpool()
 ############################################################################
-#cemodel = Model(json_db_filepath="CE_model.json") # TODO: Calling a serialized model does not work
+cemodel = Model(json_db_filepath="CE_model.json") #
 
 scell = SuperCell(json_db_filepath="scell.json")
 scell.get_sublattice_types(pretty_print=True)
