@@ -1,0 +1,11 @@
+dict(compute_forces=True,
+     dielec_func=('1', '78.358', 0.0003, 0.005),
+     ions_conc=0,
+     output=['dipole'],
+     relativistic=('atomic_zora', 'scalar'),
+     sc_accuracy_eev=1e-06,
+     sc_accuracy_etot=1e-08,
+     sc_accuracy_rho=1e-06,
+     sc_iter_limit=40,
+     solvent='mpb',
+     xc='pbe0')
