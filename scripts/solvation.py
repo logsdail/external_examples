@@ -26,23 +26,26 @@ def mpb_solv(results, solvation_energy, rhomin, rhomax):
             j = Decimal(format(j, '.4f'))  # formats j to 4 decimal places
             folder = str(i)+'_'+str(j) # creates a name for folder in the form {rhomin}_{rhomax}
             pwd = os.path.dirname(__file__) # gets the directory of this python file
-            try:
-                os.getcwd() # gets current working directory
-                os.chdir(pwd+'\\..\\Data\\'+results) # moves the current directory to where the results are located
-                os.chdir(os.getcwd()+'\\'+folder) # moves the directory to the defined folder for this loop
-            except:
-                pass
+            aims_out_folder = pwd+'/../Data/'+results+'/'+folder # derive the aims.out folder
+
+            #try:
+            #    os.getcwd() # gets current working directory
+            #    os.chdir(pwd+'\\..\\Data\\'+results) # moves the current directory to where the results are located
+            #    os.chdir(os.getcwd()+'\\'+folder) # moves the directory to the defined folder for this loop
+            #except:
+            #    print("FAIL")
+            #    pass
 
             ## Appends all lines containing the phase '| Free Energy in Electrolyte' to a list
             is_converged = False
-            with open('aims.out','r') as file:
+            with open(aims_out_folder+'/aims.out','r') as file:
                 for n, line in enumerate(file):
                     if 'Have a nice day.' in line:
                         is_converged = True
                         break
             if is_converged:
                 line_list = []
-                with open('aims.out','r') as file:
+                with open(aims_out_folder+'/aims.out','r') as file:
                     for n, line in enumerate(file):
                         if '| Free Energy in Electrolyte' in line:
                             line_list.append(line)
