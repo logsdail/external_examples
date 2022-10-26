@@ -15,6 +15,7 @@ dependencies:
   - ase
   - wulffpack
   - asap3
+  - catlearn
 # Necessary for online atom viewing
   - nglview
   - ipywidgets
